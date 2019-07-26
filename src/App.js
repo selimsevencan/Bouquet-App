@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Search from './components/Search';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.scss';
+
+import { createFetchUsers } from './api/fetchUsers.js';
+import { clearUsers } from './api/clearUsers.js';
+import Card from "./components/UserDetail";
+
+class App extends Component {
+  render() {
+    const {
+      dispatch,
+      loading,
+      data,
+    } = this.props;
+    
+    console.log(this.props)
+    return (
+      <div className="App">
+        <Search 
+          clearState={this.clearState}
+          createFetchUsers={createFetchUsers}
+          clearUsers={clearUsers}
+          dispatch={dispatch}
+          loading={loading}
+        />
+        <Card
+          data={data}
+        />
+      </div>
+    );
+  }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    data: state.users.data,
+    loading: state.users.loading,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
