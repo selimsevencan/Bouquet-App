@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Search from "./components/Search";
 import { connect } from "react-redux";
+import debounce from "lodash/debounce";
 
 import "./App.scss";
 
@@ -36,11 +37,15 @@ class App extends Component {
           image: { avatar: true, src: item.avatar_url }
         };
       });
+    const debouncedFetchUsers = debounce(
+      name => dispatch(createFetchUsers(name)),
+      800
+    );
     return (
       <div className="App">
         <Search
           clearState={this.clearState}
-          createFetchUsers={createFetchUsers}
+          debouncedFetchUsers={debouncedFetchUsers}
           createFetchUser={createFetchUser}
           dispatch={dispatch}
           loading={loading}
