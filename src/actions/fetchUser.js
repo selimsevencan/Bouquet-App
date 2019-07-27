@@ -1,4 +1,6 @@
-import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_FAILED } from "../actions";
+export const FETCH_USER = "FETCH_USER";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const FETCH_USER_FAILED = "FETCH_USER_FAILED";
 
 export function createFetchUser(username) {
   const url = `${process.env.REACT_APP_API_BASE}users/${username}`;

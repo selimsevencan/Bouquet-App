@@ -1,9 +1,9 @@
 import {
   FETCH_USERS,
   FETCH_USERS_SUCCESS,
-  FETCH_USERS_FAILED,
-  CLEAR_DATA
-} from "../actions";
+  FETCH_USERS_FAILED
+} from "../actions/fetchUsers";
+import { CLEAR_DATA } from "../actions/clearData";
 
 const initialState = {
   data: [],

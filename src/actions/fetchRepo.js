@@ -1,4 +1,6 @@
-import { FETCH_REPO, FETCH_REPO_SUCCESS, FETCH_REPO_FAILED } from "../actions";
+export const FETCH_REPO = "FETCH_REPO";
+export const FETCH_REPO_SUCCESS = "FETCH_REPO_SUCCESS";
+export const FETCH_REPO_FAILED = "FETCH_REPO_FAILED";
 
 export function createFetchRepo(username) {
   const url = `${process.env.REACT_APP_API_BASE}users/${username}/repos`;

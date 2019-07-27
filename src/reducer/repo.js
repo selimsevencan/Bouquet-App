@@ -1,10 +1,9 @@
 import {
   FETCH_REPO,
   FETCH_REPO_SUCCESS,
-  FETCH_REPO_FAILED,
-  CLEAR_DATA
-} from "../actions";
-
+  FETCH_REPO_FAILED
+} from "../actions/fetchRepo";
+import { CLEAR_DATA } from "../actions/clearData";
 const initialState = {
   repo: [],
   repoLoading: false,

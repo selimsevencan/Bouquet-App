@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 
 import "./App.scss";
 
-import { createFetchUsers } from "./api/fetchUsers.js";
-import { createFetchUser } from "./api/fetchUser.js";
-import { createFetchRepo } from "./api/fetchRepo.js";
-import { clearData } from "./actions/index.js";
-import Card from "./components/UserDetail";
+import { createFetchUsers } from "./actions/fetchUsers";
+import { createFetchUser } from "./actions/fetchUser";
+import { createFetchRepo } from "./actions/fetchRepo";
+import { clearData } from "./actions/clearData";
+import UserDetail from "./components/UserDetail";
 import Table from "./components/Table";
 
 class App extends Component {
@@ -23,7 +23,7 @@ class App extends Component {
     } = this.props;
 
     console.log("prop", this.props);
-    const hasData = Object.keys(data).length;
+    const hasData = data && data.items && data.items.length;
     const hasUserData = !!userData && Object.keys(userData).length;
     const hasRepos = !!repos.length;
     const renderOptions =
@@ -49,7 +49,9 @@ class App extends Component {
           clearData={clearData}
         />
         <div className="userDetailWrapper">
-          {!!hasUserData && <Card data={userData} loading={userLoading} />}
+          {!!hasUserData && (
+            <UserDetail data={userData} loading={userLoading} />
+          )}
           {hasRepos && <Table repos={repos} />}
         </div>
       </div>

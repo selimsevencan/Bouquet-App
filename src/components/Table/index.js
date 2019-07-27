@@ -1,42 +1,43 @@
 import React from "react";
+import { Table } from "semantic-ui-react";
 
 import "./Table.scss";
 
 export default function DataTable(props) {
   const { repos } = props;
   return (
-    <table className="ui basic table tableWrapper">
-      <thead>
-        <tr>
-          <td>Repo Name</td>
-          <td>Repo Description</td>
-          <td>Repo Link</td>
-          <td>Created Date</td>
-          <td>Last Update Date</td>
-          <td>Programming Language</td>
-          <td>License Name</td>
-          <td>Open Issues Count</td>
-          <td>Star Count</td>
-        </tr>
-      </thead>
-      <tbody>
+    <Table celled>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Repo Name</Table.HeaderCell>
+          <Table.HeaderCell>Repo Description</Table.HeaderCell>
+          <Table.HeaderCell>Repo Link</Table.HeaderCell>
+          <Table.HeaderCell>Created Date</Table.HeaderCell>
+          <Table.HeaderCell>Last Update Date</Table.HeaderCell>
+          <Table.HeaderCell>Programming Language</Table.HeaderCell>
+          <Table.HeaderCell>License Name</Table.HeaderCell>
+          <Table.HeaderCell>Open Issues Count</Table.HeaderCell>
+          <Table.HeaderCell>Star Count</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
         {repos.map(item => {
           const hasLicense = item.license && !!Object.keys(item.license).length;
           return (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.description}</td>
-              <td>{item.html_url}</td>
-              <td>{item.created_at}</td>
-              <td>{item.updated_at}</td>
-              <td>{item.language}</td>
-              <td>{hasLicense && item.license.name}</td>
-              <td>{item.open_issues_count}</td>
-              <td>{item.stargazers_count}</td>
-            </tr>
+            <Table.Row key={item.id}>
+              <Table.Cell>{item.name}</Table.Cell>
+              <Table.Cell>{item.description}</Table.Cell>
+              <Table.Cell>{item.html_url}</Table.Cell>
+              <Table.Cell>{item.created_at}</Table.Cell>
+              <Table.Cell>{item.updated_at}</Table.Cell>
+              <Table.Cell>{item.language}</Table.Cell>
+              <Table.Cell>{hasLicense && item.license.name}</Table.Cell>
+              <Table.Cell>{item.open_issues_count}</Table.Cell>
+              <Table.Cell>{item.stargazers_count}</Table.Cell>
+            </Table.Row>
           );
         })}
-      </tbody>
-    </table>
+      </Table.Body>
+    </Table>
   );
 }
