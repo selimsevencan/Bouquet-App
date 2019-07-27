@@ -1,12 +1,11 @@
 .topbar {
     padding: 10px 0px; 
-    width: 100%;
+    width: 40%;
     display: flex;
     .inputWrapper {
-        width: 200px;
-        float: left;
+        width: 50%;
     }
     .clearButton {
-        float: right;
+        margin-left: auto !important;
     }
   }

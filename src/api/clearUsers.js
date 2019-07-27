@@ -8,7 +8,8 @@ export function clearUsers() {
       dispatch({
         type: CLEAR_USERS,
         payload: {
-            data: {},
+            data: [],
+            userData: {},
         },
       });
   

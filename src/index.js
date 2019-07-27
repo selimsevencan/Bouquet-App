@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import reducer from './reducer';
 import thunk from 'redux-thunk';
 import './index.scss';
+import 'semantic-ui-css/semantic.min.css';
 
 const store = createStore(
     reducer,

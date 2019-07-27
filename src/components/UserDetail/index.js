@@ -5,7 +5,6 @@ import './UserDetail.scss';
 export default function UserDetail(props) {
   const { data } = props;
   const { name = '', location = '', company = '', blog = '', bio = '', avatar_url = '', public_repos = 0, } = data;
-  console.log()
   return (<Card>
     <Image src={avatar_url} wrapped ui={false} />
     <Card.Content>
@@ -18,9 +17,16 @@ export default function UserDetail(props) {
           </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      {public_repos > 0 && `${name} has ${public_repos}`}
-      {blog && `${name}'s blog is ${blog}`}
-      {bio && `${name}'s bio is ${bio}`}
+      <p>{public_repos > 0 && `${name} has ${public_repos} public repos`}</p>
+      <p>
+        {blog && 
+        <React.Fragment>
+          <strong>{name}'s blog is </strong>
+          <a href={blog} rel={blog} target={'_blank'}>{blog}</a>
+        </React.Fragment>
+        }
+        </p>
+      <p>{bio && `${name}'s bio is ${bio}`}</p>
     </Card.Content>
   </Card>);
 }

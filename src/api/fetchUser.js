@@ -1,17 +1,17 @@
-import { api } from '../config.js';
+import { userApi } from '../config.js';
 
 import {
-    FETCH_USERS,
-    FETCH_USERS_SUCCESS,
-    FETCH_USERS_FAILED,
+    FETCH_USER,
+    FETCH_USER_SUCCESS,
+    FETCH_USER_FAILED,
   } from '../actions';
   
-export function createFetchUsers(username) {
-    const url =`${api}?q=${username}+repos:>5`;
+export function createFetchUser(username) {
+    const url =`${userApi}${username}`;
     
     return function (dispatch) {
       dispatch({
-        type: FETCH_USERS,
+        type: FETCH_USER,
         payload: {},
       });
   
@@ -19,15 +19,15 @@ export function createFetchUsers(username) {
         .then(response => response.json())
         .then(response => {
           dispatch({
-            type: FETCH_USERS_SUCCESS,
+            type: FETCH_USER_SUCCESS,
             payload: {
-              data: response
+              userData: response
             }
           })
         })
         .catch(error => {
           dispatch({
-            type: FETCH_USERS_FAILED,
+            type: FETCH_USER_FAILED,
             payload: {
               error
             }
