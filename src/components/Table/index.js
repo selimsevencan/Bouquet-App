@@ -1,10 +1,16 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import { Table, Segment, Loader } from "semantic-ui-react";
 
 import "./Table.scss";
 
-export default function DataTable(props) {
-  const { repos } = props;
+export default function DataTable({ repos, loading }) {
+  if (loading) {
+    return (
+      <Segment style={{ minHeight: 100 }}>
+        <Loader active />
+      </Segment>
+    );
+  }
   return (
     <Table celled>
       <Table.Header>
@@ -23,13 +29,23 @@ export default function DataTable(props) {
       <Table.Body>
         {repos.map(item => {
           const hasLicense = item.license && !!Object.keys(item.license).length;
+          const createdDate = new Date(item.created_at).toLocaleString();
+          const updateDate = new Date(item.updated_at).toLocaleString();
           return (
             <Table.Row key={item.id}>
               <Table.Cell>{item.name}</Table.Cell>
               <Table.Cell>{item.description}</Table.Cell>
-              <Table.Cell>{item.html_url}</Table.Cell>
-              <Table.Cell>{item.created_at}</Table.Cell>
-              <Table.Cell>{item.updated_at}</Table.Cell>
+              <Table.Cell>
+                <a
+                  target={"_blank"}
+                  href={item.html_url}
+                  rel="nofollow noopener"
+                >
+                  {item.html_url}
+                </a>
+              </Table.Cell>
+              <Table.Cell>{createdDate}</Table.Cell>
+              <Table.Cell>{updateDate}</Table.Cell>
               <Table.Cell>{item.language}</Table.Cell>
               <Table.Cell>{hasLicense && item.license.name}</Table.Cell>
               <Table.Cell>{item.open_issues_count}</Table.Cell>

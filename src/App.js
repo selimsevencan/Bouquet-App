@@ -19,10 +19,10 @@ class App extends Component {
       data,
       userData,
       userLoading,
-      repos
+      repos,
+      repoLoading
     } = this.props;
 
-    console.log("prop", this.props);
     const hasData = data && data.items && data.items.length;
     const hasUserData = !!userData && Object.keys(userData).length;
     const hasRepos = !!repos.length;
@@ -52,7 +52,7 @@ class App extends Component {
           {!!hasUserData && (
             <UserDetail data={userData} loading={userLoading} />
           )}
-          {hasRepos && <Table repos={repos} />}
+          {hasRepos && <Table repos={repos} loading={repoLoading} />}
         </div>
       </div>
     );

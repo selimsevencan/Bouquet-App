@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Loader } from "semantic-ui-react";
 import "./UserDetail.scss";
 
 export default function UserDetail({
+  loading,
   data: {
     name = "",
     location = "",
@@ -13,6 +14,13 @@ export default function UserDetail({
     public_repos = 0
   }
 }) {
+  if (loading) {
+    return (
+      <Card style={{ minHeight: 100 }}>
+        <Loader active />
+      </Card>
+    );
+  }
   return (
     <Card>
       <Image src={avatar_url} wrapped ui={false} />

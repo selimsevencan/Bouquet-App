@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, Input, Dropdown } from "semantic-ui-react";
+import { Button, Input, Dropdown, Confirm } from "semantic-ui-react";
+import debounce from "lodash/debounce";
 
 import "./Search.scss";
 
@@ -14,11 +15,17 @@ export default function Search({
 }) {
   const [username, setUserName] = useState("");
   const [dropdownValue, setDropdown] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const debouncedDispatch = debounce(
+    name => dispatch(createFetchUsers(name)),
+    800
+  );
 
   const fetchUsers = () => e => {
     const name = e.target.value;
     setUserName(name);
-    dispatch(createFetchUsers(name));
+    debouncedDispatch(name);
   };
 
   const fetchUser = selected => {
@@ -27,6 +34,12 @@ export default function Search({
     dispatch(createFetchUser(selectedUser));
     dispatch(createFetchRepo(selectedUser));
   };
+
+  const handleConfirm = () => {
+    setShowConfirm(false);
+    clearState();
+  };
+  const handleCancel = () => setShowConfirm(false);
 
   const clearState = () => {
     setUserName("");
@@ -61,7 +74,7 @@ export default function Search({
         />
         {!!username && (
           <Button
-            onClick={clearState}
+            onClick={() => setShowConfirm(true)}
             basic
             color={"red"}
             className="clearButton"
@@ -69,6 +82,12 @@ export default function Search({
             Clear
           </Button>
         )}
+        <Confirm
+          open={showConfirm}
+          content="Are you sure about clear whole search result?"
+          onCancel={handleCancel}
+          onConfirm={handleConfirm}
+        />
       </div>
     </React.Fragment>
   );
