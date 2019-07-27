@@ -1,32 +1,33 @@
-import { api } from '../config.js';
+import { userApi } from '../config.js';
 
 import {
-    FETCH_USERS,
-    FETCH_USERS_SUCCESS,
-    FETCH_USERS_FAILED,
+    FETCH_REPO,
+    FETCH_REPO_SUCCESS,
+    FETCH_REPO_FAILED,
   } from '../actions';
   
-export function createFetchUsers(username) {
-    const url =`${api}?q=${username}+repos:>5`;
+export function createFetchRepo(username) {
+    const url =`${userApi}${username}/repos`;
     
     return function (dispatch) {
       dispatch({
-        type: FETCH_USERS,
+        type: FETCH_REPO,
         payload: {},
       });
+  
       fetch(url)
         .then(response => response.json())
         .then(response => {
           dispatch({
-            type: FETCH_USERS_SUCCESS,
+            type: FETCH_REPO_SUCCESS,
             payload: {
-              data: response
+              repo: response
             }
           })
         })
         .catch(error => {
           dispatch({
-            type: FETCH_USERS_FAILED,
+            type: FETCH_REPO_FAILED,
             payload: {
               error
             }

@@ -12,6 +12,7 @@ export default function Search(props) {
     clearUsers,
     loading,
     options,
+    createFetchRepo,
   } = props;
   const [username, setUserName] = useState('');
   const [dropdownValue, setDropdown] = useState('');
@@ -30,6 +31,10 @@ export default function Search(props) {
     setTimeout(() => {
       dispatch(createFetchUser(selectedUser))
      }, 1000)
+     setTimeout(() => {
+      dispatch(createFetchRepo(selectedUser))
+     }, 1000)
+
   }
 
   const clearState = () => {
