@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import Search from './components/Search';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import Search from "./components/Search";
+import { connect } from "react-redux";
 
-import './App.scss';
+import "./App.scss";
 
-import { createFetchUsers } from './api/fetchUsers.js';
-import { createFetchUser } from './api/fetchUser.js';
-import { clearUsers } from './api/clearUsers.js';
-import { createFetchRepo } from './api/fetchRepo.js'
+import { createFetchUsers } from "./api/fetchUsers.js";
+import { createFetchUser } from "./api/fetchUser.js";
+import { createFetchRepo } from "./api/fetchRepo.js";
+import { clearData } from "./actions/index.js";
 import Card from "./components/UserDetail";
-import Table from './components/Table';
+import Table from "./components/Table";
 
 class App extends Component {
   render() {
@@ -19,46 +19,39 @@ class App extends Component {
       data,
       userData,
       userLoading,
-      repos,
+      repos
     } = this.props;
-    
-    console.log('prop', this.props)
+
+    console.log("prop", this.props);
     const hasData = Object.keys(data).length;
     const hasUserData = !!userData && Object.keys(userData).length;
     const hasRepos = !!repos.length;
-    const renderOptions = hasData && data.items.map(item =>{
-      return {
-        value: item.login,
-        key: item.id, 
-        text: item.login,
-        image: { avatar: true, src: item.avatar_url },
-      }
-    });
+    const renderOptions =
+      hasData &&
+      data.items.map(item => {
+        return {
+          value: item.login,
+          key: item.id,
+          text: item.login,
+          image: { avatar: true, src: item.avatar_url }
+        };
+      });
     return (
       <div className="App">
-        <Search 
+        <Search
           clearState={this.clearState}
           createFetchUsers={createFetchUsers}
-          clearUsers={clearUsers}
           createFetchUser={createFetchUser}
           dispatch={dispatch}
           loading={loading}
           options={renderOptions}
           createFetchRepo={createFetchRepo}
+          clearData={clearData}
         />
-        {
-          !!hasUserData &&
-          <Card
-            data={userData}
-            loading={userLoading}
-          />
-        }
-        {
-          hasRepos && 
-          <Table
-            repos={repos}
-          />
-        }
+        <div className="userDetailWrapper">
+          {!!hasUserData && <Card data={userData} loading={userLoading} />}
+          {hasRepos && <Table repos={repos} />}
+        </div>
       </div>
     );
   }
@@ -71,14 +64,17 @@ function mapStateToProps(state) {
     userData: state.user.userData,
     userLoading: state.user.userLoading,
     repos: state.repos.repo,
-    repoLoading: state.repos.repoLoading,
+    repoLoading: state.repos.repoLoading
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
-  }
+    dispatch
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

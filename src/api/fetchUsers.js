@@ -1,37 +1,34 @@
-import { api } from '../config.js';
-
 import {
-    FETCH_USERS,
-    FETCH_USERS_SUCCESS,
-    FETCH_USERS_FAILED,
-  } from '../actions';
-  
+  FETCH_USERS,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_FAILED
+} from "../actions";
+
 export function createFetchUsers(username) {
-    const url =`${api}?q=${username}+repos:>5`;
-    
-    return function (dispatch) {
+  const url = `${process.env.REACT_APP_API_BASE}search/users?q=${username}+repos:>5`;
+
+  return async function(dispatch) {
+    dispatch({
+      type: FETCH_USERS,
+      payload: {}
+    });
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
       dispatch({
-        type: FETCH_USERS,
-        payload: {},
+        type: FETCH_USERS_SUCCESS,
+        payload: {
+          data
+        }
       });
-      fetch(url)
-        .then(response => response.json())
-        .then(response => {
-          dispatch({
-            type: FETCH_USERS_SUCCESS,
-            payload: {
-              data: response
-            }
-          })
-        })
-        .catch(error => {
-          dispatch({
-            type: FETCH_USERS_FAILED,
-            payload: {
-              error
-            }
-          })
-        })
+    } catch (error) {
+      dispatch({
+        type: FETCH_USERS_FAILED,
+        payload: {
+          error
+        }
+      });
     }
-  }
-  
+  };
+}

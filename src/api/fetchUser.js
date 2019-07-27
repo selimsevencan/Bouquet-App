@@ -1,38 +1,30 @@
-import { userApi } from '../config.js';
+import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_FAILED } from "../actions";
 
-import {
-    FETCH_USER,
-    FETCH_USER_SUCCESS,
-    FETCH_USER_FAILED,
-  } from '../actions';
-  
 export function createFetchUser(username) {
-    const url =`${userApi}${username}`;
-    
-    return function (dispatch) {
+  const url = `${process.env.REACT_APP_API_BASE}users/${username}`;
+
+  return async function(dispatch) {
+    dispatch({
+      type: FETCH_USER,
+      payload: {}
+    });
+    try {
+      const response = await fetch(url);
+      const userData = await response.json();
+
       dispatch({
-        type: FETCH_USER,
-        payload: {},
+        type: FETCH_USER_SUCCESS,
+        payload: {
+          userData
+        }
       });
-  
-      fetch(url)
-        .then(response => response.json())
-        .then(response => {
-          dispatch({
-            type: FETCH_USER_SUCCESS,
-            payload: {
-              userData: response
-            }
-          })
-        })
-        .catch(error => {
-          dispatch({
-            type: FETCH_USER_FAILED,
-            payload: {
-              error
-            }
-          })
-        })
+    } catch (error) {
+      dispatch({
+        type: FETCH_USER_FAILED,
+        payload: {
+          error
+        }
+      });
     }
-  }
-  
+  };
+}
