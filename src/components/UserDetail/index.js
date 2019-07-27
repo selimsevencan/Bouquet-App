@@ -39,7 +39,7 @@ export default function UserDetail({
           {blog && (
             <React.Fragment>
               <strong>{name}'s blog is </strong>
-              <a href={blog} rel={blog} target={"_blank"}>
+              <a href={blog} rel="nofollow noopener" target={"_blank"}>
                 {blog}
               </a>
             </React.Fragment>

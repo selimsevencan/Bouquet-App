@@ -65,17 +65,16 @@ export default function Search({
             )
           }
         />
-        {!!username ||
-          (!!options && (
-            <Button
-              onClick={() => setShowConfirm(true)}
-              basic
-              color={"red"}
-              className="clearButton"
-            >
-              Clear
-            </Button>
-          ))}
+        {(!!username || !!options) && (
+          <Button
+            onClick={() => setShowConfirm(true)}
+            basic
+            color={"red"}
+            className="clearButton"
+          >
+            Clear
+          </Button>
+        )}
         <Confirm
           open={showConfirm}
           content="Are you sure about clear whole search result?"
