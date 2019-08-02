@@ -1,7 +1,5 @@
 import React from "react";
-import { Table, Segment, Loader } from "semantic-ui-react";
-
-import "./Table.scss";
+import { Table, Segment, Loader } from "semantic-ui-react"
 
 export default function DataTable({ repos, loading }) {
   if (loading) {

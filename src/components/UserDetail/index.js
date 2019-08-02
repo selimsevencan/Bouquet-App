@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Image, Loader } from "semantic-ui-react";
-import "./UserDetail.scss";
 
 export default function UserDetail({
   loading,
