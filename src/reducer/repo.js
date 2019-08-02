@@ -1,43 +1,42 @@
 import {
-  FETCH_USER,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_FAILED
-} from "../actions/fetchUser";
+  FETCH_REPO,
+  FETCH_REPO_SUCCESS,
+  FETCH_REPO_FAILED
+} from "../actions/fetchRepo";
 import { CLEAR_DATA } from "../actions/clearData";
-
 const initialState = {
-  userData: {},
-  userLoading: false,
+  repo: [],
+  repoLoading: false,
   error: null
 };
 
-export default function users(state = initialState, action) {
+export default function repos(state = initialState, action) {
   switch (action.type) {
     case CLEAR_DATA: {
       return {
         ...initialState
       };
     }
-    case FETCH_USER: {
+    case FETCH_REPO: {
       return {
         ...state,
-        userLoading: true
+        repoLoading: true
       };
     }
 
-    case FETCH_USER_SUCCESS: {
+    case FETCH_REPO_SUCCESS: {
       return {
         ...state,
-        userData: action.payload.userData,
-        userLoading: false
+        repo: action.payload.repo,
+        repoLoading: false
       };
     }
 
-    case FETCH_USER_FAILED: {
+    case FETCH_REPO_FAILED: {
       return {
         ...state,
         error: action.payload.error,
-        userLoading: false
+        repoLoading: false
       };
     }
 
