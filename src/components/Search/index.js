@@ -77,7 +77,7 @@ export default function Search({
         )}
         <Confirm
           open={showConfirm}
-          content="Are you sure about clear whole search result?"
+          content="Are you sure to clear all the search result?"
           onCancel={handleCancel}
           onConfirm={handleConfirm}
         />
